@@ -11,10 +11,10 @@ import seaborn as sns
 
 # %%
 
-def completedistplot(df, xx, color = 'b',  background = 'light',
+def completedistplot(data, x, color = 'b',  background = 'light',
                      hist = True, kde = True, strip = True, rug = True, box = True,
                      hist_kws = None, kde_kws = None, strip_kws = None, 
-                     rug_kws = None, box_kws = None, fig = None, ax1 = None):
+                     rug_kws = None, box_kws = None, fig = None, ax = None):
     
     custom_kws = (hist_kws, kde_kws, strip_kws, rug_kws, box_kws)
     
@@ -58,29 +58,31 @@ def completedistplot(df, xx, color = 'b',  background = 'light',
                 
                 
     # Creating figure if None is provided           
-    if fig is None and ax1 is None:
-        fig, ax1 = plt.subplots(2, 1, figsize =  (12, 6))
+    if fig is None and ax is None:
+        fig, ax = plt.subplots(2, 1, figsize =  (12, 6))
+        
+    ax = ax
         
         
     # Plotting desired distributions
     if hist:
-        sns.histplot(data = data, x = xx, ax = ax1[0], **hist_std_kws)
+        sns.histplot(data = data, x = x, ax = ax[0], **hist_std_kws)
     
     if kde:
-        sns.kdeplot(data = data, x = xx, ax = ax1[0], **kde_std_kws)
+        sns.kdeplot(data = data, x = x, ax = ax[0], **kde_std_kws)
     
     if strip:
-        sns.stripplot(data = data, x = xx, ax = ax1[1], **strip_std_kws)
+        sns.stripplot(data = data, x = x, ax = ax[1], **strip_std_kws)
     
     if rug:
-        sns.rugplot(data = data, x = xx, ax = ax1[1], **rug_std_kws)
+        sns.rugplot(data = data, x = x, ax = ax[1], **rug_std_kws)
     
     if box:
         alpha = box_std_kws['alpha']
         
         box_std_kws.pop('alpha')
         
-        ax_ = sns.boxplot(data = data, x = xx, ax = ax1[1], **box_std_kws)
+        ax_ = sns.boxplot(data = data, x = x, ax = ax[1], **box_std_kws)
         
     # Setting alpha configuration for boxplot
         for patch in ax_.patches:
@@ -88,36 +90,36 @@ def completedistplot(df, xx, color = 'b',  background = 'light',
             patch.set_facecolor((r, g, b, alpha))
             
     # Removing features from first axis
-    ax1[0].set_xlabel('')
-    ax1[0].set_ylabel('')
+    ax[0].set_xlabel('')
+    ax[0].set_ylabel('')
 
-    ax1[0].tick_params(
+    ax[0].tick_params(
                    bottom=False,
                    left=False,
                    labelleft=False,
                    labelbottom=False)
 
-    ax1[0].spines['top'].set_visible(False)
-    ax1[0].spines['left'].set_visible(False)
-    ax1[0].spines['right'].set_visible(False)
+    ax[0].spines['top'].set_visible(False)
+    ax[0].spines['left'].set_visible(False)
+    ax[0].spines['right'].set_visible(False)
 
     # Setting tick and xlabel configurations for second axis
-    ax1[1].tick_params(labelsize = 20)
-    ax1[1].set_xlabel(xx, size = 20)
+    ax[1].tick_params(labelsize = 20)
+    ax[1].set_xlabel(x, size = 20)
 
     # Removing features from second axis
-    ax1[1].spines['top'].set_visible(False)
-    ax1[1].spines['left'].set_visible(False)
-    ax1[1].spines['right'].set_visible(False)
+    ax[1].spines['top'].set_visible(False)
+    ax[1].spines['left'].set_visible(False)
+    ax[1].spines['right'].set_visible(False)
 
     
     # Setting limits for both axis
-    ax1[0].set_xlim(0.97 * data[xx].min(), data[xx].max() * 1.03)
-    ax1[1].set_xlim(0.97 * data[xx].min(), data[xx].max() * 1.03)
+    ax[0].set_xlim(0.97 * data[x].min(), data[x].max() * 1.03)
+    ax[1].set_xlim(0.97 * data[x].min(), data[x].max() * 1.03)
     
     fig.tight_layout()
     
-    return fig, ax1
+    return fig, ax
 
 
 # %%
@@ -149,6 +151,15 @@ if __name__ == "__main__":
                                hist_kws = {'bins': 20, 'fill': True, 
                                            'color': '#fcdb03', 'alpha': 0.6},
                                box_kws = {'color': '#fcdb03', 'alpha': 0.6});
+    
+    fig, ax = plt.subplots(2, 4, figsize = (15, 6))
+
+    color = ['r', 'g', 'b', 'm']
+    features = ['bill_length_mm', 'bill_depth_mm', 'flipper_length_mm', 'body_mass_g']
+
+    for i, (c, f) in enumerate(zip(color, features)):
+        fig, ax[:, i] = completedistplot(data, x = f, color = c, fig = fig, ax = ax[:, i])
+
 
 
 
