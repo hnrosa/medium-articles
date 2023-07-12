@@ -125,7 +125,7 @@ def completedistplot(data, x, color = 'b',  background = 'light',
 # %%
 
 if __name__ == "__main__":
-    
+# palmerpenguins must be installed (!pip install palmerpenguins)
     from palmerpenguins import load_penguins
     
     data = load_penguins()
