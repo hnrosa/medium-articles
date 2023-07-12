@@ -157,6 +157,7 @@ if __name__ == "__main__":
     color = ['r', 'g', 'b', 'm']
     features = ['bill_length_mm', 'bill_depth_mm', 'flipper_length_mm', 'body_mass_g']
 
+    plt.style.use('default')  
     for i, (c, f) in enumerate(zip(color, features)):
         fig, ax[:, i] = completedistplot(data, x = f, color = c, fig = fig, ax = ax[:, i])
 
