@@ -5,6 +5,7 @@ Created on Thu Jul  6 02:21:33 2023
 @author: Heitor Nunes Rosa
 @gmail: heitornunes12@gmail.com
 @github: @hnrosa
+@article: https://medium.com/@heitornunesrosa/apresentando-5-informações-em-um-único-gráfico-bf363b619a70
 
 """
 
