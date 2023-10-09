@@ -4,6 +4,7 @@ Created on Mon Jul 10 22:27:03 2023
 
 @author: Heitor Nunes Rosa
 @gmail: heitornunes12@gmail.com
+@article: https://medium.com/@heitornunesrosa/5-visualizações-de-uma-distribuição-em-um-único-gráfico-6dafe680baf9
 """
 
 import matplotlib.pyplot as plt
